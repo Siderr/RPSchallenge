@@ -19,20 +19,34 @@
     });
 
     socket.on('choose', function() {
-      var game = document.getElementById('game');
-      game.style.visibility = "visible";
-      var wait = document.getElementById('wait');
-      wait.style.visibility = "hidden";
+        var game = document.getElementById('game');
+        game.style.visibility = "visible";
+        var wait = document.getElementById('wait');
+        wait.style.visibility = "hidden";
     });
 
     socket.on('result', function(data) {
-      var result = document.getElementById('result');
-      result.style.visibility = "visible";
-      result.innerHTML = data.content;
+        var result = document.getElementById('result');
+        result.style.visibility = "visible";
+        result.innerHTML = data.content;
+        var secs = 5;
+
+        updateText();
+
+        function updateText() {
+            var counter = document.getElementById('counter');
+            counter.innerHTML = 'You will be placed in queue after ' + secs + ' seconds';
+
+            secs--;
+            if (secs > 0) {
+                setTimeout(updateText, 1000);
+            }
+        }
+        counter.style.visibility = 'hidden';
     });
 
-    var choice = function(data){
-      socket.emit('choice', data);
+    var choice = function(data) {
+        socket.emit('choice', data);
     }
     </script>
 </head>
@@ -47,12 +61,14 @@
     <span id='wait'></span>
     </br>
     <span id='game' style="visibility:hidden">
-      <a onClick="choice('rock')" href="#">Rock</a>
-      <a onClick="choice('paper')"href="#">Paper</a>
-      <a onClick="choice('scissors')" href="#">Scissors</a>
+        <a onClick="choice('rock')" href="#">Rock</a>
+        <a onClick="choice('paper')" href="#">Paper</a>
+        <a onClick="choice('scissors')" href="#">Scissors</a>
     </span>
-  </br>
-    <span id='result' style"visibility:hidden">
+    </br>
+    <span id='result' style "visibility:hidden">
+    </span>
+    <span id='counter'>
     </span>
 </body>
 

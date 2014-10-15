@@ -24,7 +24,7 @@ io.on('connection', function(socket) {
     clients.push(socket);
 
     socket.on('ready', function(ready) {
-        console.log('getting ready.	')
+        console.log('getting ready. ')
         waiting.push(socket);
         socket.emit('wait', {
             'content': 'Please wait until we find you an opponent.'
@@ -49,8 +49,8 @@ server.listen(9098, function() {
     console.log('Listening on port ' + serverPort);
 });
 
-var battle = function(p1, p2, player1, player2) {
-    console.log('Entering battle.');
+var battle = function(p1, p2, player1, player2) 
+{    console.log('Entering battle.');
     if ((p1 == 'rock') && (p2 == 'scissors')) {
         player1.emit('result', {
             'content': 'You won!'
@@ -107,7 +107,15 @@ var battle = function(p1, p2, player1, player2) {
             'content': 'It\'s a tie!'
         });
     }
-
+    console.log('Preparing to restart battle.');
+    setTimeout(function() {
+        for (var i = 0; i < matches.length; i++) {
+            if(player1 == matches[i].player1 && player2 == matches[i].player2)
+            matches.splice(i,1);
+        }
+        waiting.push(player1);
+        waiting.push(player2);
+    }, 5000);
 };
 
 var game = function(player1, player2) {
