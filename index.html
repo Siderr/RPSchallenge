@@ -1,0 +1,59 @@
+<html>
+
+<head>
+    <title>Demo Socket.IO</title>
+    <script src="/socket.io/socket.io.js">
+    </script>
+    <script>
+    var socket = io.connect();
+    socket.on('playerid', function(data) {
+        console.log(data);
+        document.getElementById('status').innerHTML = "Your player id is: " + data.content;
+        socket.emit('ready', 'ready');
+    });
+
+    socket.on('wait', function(data) {
+        console.log(data);
+        var wait = document.getElementById('wait');
+        wait.innerHTML = data.content;
+    });
+
+    socket.on('choose', function() {
+      var game = document.getElementById('game');
+      game.style.visibility = "visible";
+      var wait = document.getElementById('wait');
+      wait.style.visibility = "hidden";
+    });
+
+    socket.on('result', function(data) {
+      var result = document.getElementById('result');
+      result.style.visibility = "visible";
+      result.innerHTML = data.content;
+    });
+
+    var choice = function(data){
+      socket.emit('choice', data);
+    }
+    </script>
+</head>
+
+<body>
+    <h1>
+        Rock Paper Scissors Challange
+    </h1>
+    <span id='status'>
+    </span>
+    </br>
+    <span id='wait'></span>
+    </br>
+    <span id='game' style="visibility:hidden">
+      <a onClick="choice('rock')" href="#">Rock</a>
+      <a onClick="choice('paper')"href="#">Paper</a>
+      <a onClick="choice('scissors')" href="#">Scissors</a>
+    </span>
+  </br>
+    <span id='result' style"visibility:hidden">
+    </span>
+</body>
+
+</html>
