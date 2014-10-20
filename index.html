@@ -1,60 +1,77 @@
 <html>
 
 <head>
-    <title>Demo Socket.IO</title>
+    <title>Rock Paper Scissors Challenge</title>
     <script src="/socket.io/socket.io.js">
     </script>
     <script>
+    var choice = function(data) {
+        socket.emit('choice', data);
+    };
+
+    var toggle = function(id, toggle) {
+        var element = document.getElementById(id);
+        element.style.visibility = toggle;
+    };
+
+    var setText = function(id, text) {
+        var element = document.getElementById(id);
+        element.innerHTML = text;
+    };
+    var appendText = function(id, text) {
+        var element = document.getElementById(id);
+        element.innerHTML = element.innerHTML + "</br>" + text;
+    };
     var socket = io.connect();
     socket.on('playerid', function(data) {
         console.log(data);
-        document.getElementById('status').innerHTML = "Your player id is: " + data.content;
+        var line = "Your player id is: " + data.content;
+        appendText('debug', line);
         socket.emit('ready', 'ready');
     });
 
     socket.on('wait', function(data) {
         console.log(data);
-        var wait = document.getElementById('wait');
-        wait.innerHTML = data.content;
+        setText('wait', data.content);
     });
 
     socket.on('choose', function() {
-        var game = document.getElementById('game');
-        game.style.visibility = "visible";
-        var wait = document.getElementById('wait');
-        wait.style.visibility = "hidden";
+        setText('result', '');
+        toggle('result', 'hidden');
+        setText('counter', '');
+        toggle('counter', 'hidden');
+        toggle('game', 'visible');
+        // var game = document.getElementById('game');
+        // game.style.visibility = "visible";
+        toggle('wait', 'hidden');
+        // var wait = document.getElementById('wait');
+        // wait.style.visibility = "hidden";
     });
 
     socket.on('result', function(data) {
-        var result = document.getElementById('result');
-        result.style.visibility = "visible";
-        result.innerHTML = data.content;
+        toggle('game', 'hidden');
+        setText('result', data.content);
+        toggle('result', 'visible');
         var secs = 5;
 
         updateText();
 
         function updateText() {
-            var counter = document.getElementById('counter');
-            counter.innerHTML = 'You will be placed in queue after ' + secs + ' seconds';
-
-            secs--;
-            if (secs > 0) {
-                setTimeout(updateText, 1000);
+                // var counter = document.getElementById('counter');
+                var line = 'You will be placed in queue after ' + secs + ' seconds';
+                toggle('counter','visible');
+                setText('counter', line);
+                secs--;
+                if (secs > 0) {
+                    setTimeout(updateText, 1000);
+                }
             }
-        }
-        counter.style.visibility = 'hidden';
+            // counter.style.visibility = 'hidden';
     });
-
-    var choice = function(data) {
-        socket.emit('choice', data);
-    }
     </script>
 </head>
 
 <body>
-    <h1>
-        Rock Paper Scissors Challange
-    </h1>
     <span id='status'>
     </span>
     </br>
@@ -68,7 +85,10 @@
     </br>
     <span id='result' style "visibility:hidden">
     </span>
+    </br>
     <span id='counter'>
+    </span>
+    <span id='debug'>
     </span>
 </body>
 
