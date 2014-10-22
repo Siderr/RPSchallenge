@@ -1,0 +1,12 @@
+.main {
+    margin: 0px auto !important;
+    width: 50%;
+    max-width: 800px;
+}
+.choice {
+    /*float:left;*/
+    
+    /*display: inline;*/
+    width: 100%;
+    margin: 0px;
+}
