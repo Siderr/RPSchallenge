@@ -1,12 +1,44 @@
+@font-face{
+	font-family: "monoglyceride";
+	src: url('monog.ttf') format('truetype');
+}
+
+@font-face{
+	font-family: "arialrounded";
+	src: url('arialrounded.ttf') format('truetype');
+}
+
+
 .main {
     margin: 0px auto !important;
     width: 50%;
-    max-width: 800px;
+    max-width: 600px;
 }
 .choice {
     /*float:left;*/
     
     /*display: inline;*/
-    width: 100%;
+    /*width: 33%;*/
     margin: 0px;
+}
+
+#stats {
+	font-family:"arialrounded";
+	margin: 10px 0px 0px 0px;
+	/*font-weight:bold;*/
+	text-align:center;
+}
+
+.title {
+	font-family:"monoglyceride";
+	margin: 0px auto !important;
+	text-align:center;
+}
+
+#game, #result, #counter, #wait {
+	text-align:center;
+}
+
+#result, #counter, #wait {
+	font-family:"arialrounded"
 }

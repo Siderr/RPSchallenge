@@ -52,10 +52,10 @@
         // wait.style.visibility = "hidden";
     });
 
-    socket.on('stats', function(data){
+    socket.on('stats', function(data) {
         console.log(data);
-        var line = 'WON: ' + data.w + ' LOST: ' + data.l + ' STREAK: ' + data.ws;
-        setText('stats',line);
+        var line = 'Won: ' + data.w + ' Lost: ' + data.l + ' Streak: ' + data.ws;
+        setText('stats', line);
     });
 
     socket.on('result', function(data) {
@@ -83,35 +83,38 @@
 </head>
 
 <body>
+    <h1 class="title">Rock Paper Scissors Challenge</h1>
     <div class="main">
+
         <div id='stats'></div>
-        <span id='wait'></span>
-        </br>
         <div id='game' style="visibility:hidden">
             <span class="choice">
-            <a onClick="choice('rock')">
-                <img src="rock.png" />
-            </a>
-        </span>
-        <span>
-            <a onClick="choice('paper')">
-                <img src="paper.png" />
-            </a>
-        </span>
-        <span>
-            <a onClick="choice('scissors')">
-                <img src="scissors.png" />
-            </a>
-        </span>
-        </div>
+                <a onClick="choice('rock')">
+                    <img src="rock.png" />
+                </a>
+            </span class="choice">
+            <span>
+                <a onClick="choice('paper')">
+                    <img src="paper.png" />
+                </a>
+            </span>
+            <span class="choice">
+                <a onClick="choice('scissors')">
+                    <img src="scissors.png" />
+                </a>
+            </span>
+       
         </br>
         <span id='result' style="visibility:hidden">
         </span>
         </br>
         <span id='counter'>
         </span>
+        </br>
+        <span id='wait'></span>
         <span id='debug' style="visibility:hidden">
         </span>
+         </div>
     </div>
 </body>
 
