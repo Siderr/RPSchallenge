@@ -52,11 +52,17 @@
         // wait.style.visibility = "hidden";
     });
 
+    socket.on('stats', function(data){
+        console.log(data);
+        var line = 'WON: ' + data.w + ' LOST: ' + data.l + ' STREAK: ' + data.ws;
+        setText('stats',line);
+    });
+
     socket.on('result', function(data) {
         // toggle('game', 'hidden');
         setText('result', data.content);
         toggle('result', 'visible');
-        var secs = 5;
+        var secs = 1;
 
         updateText();
 
@@ -67,7 +73,7 @@
                 setText('counter', line);
                 secs--;
                 if (secs > 0) {
-                    setTimeout(updateText, 1000);
+                    setTimeout(updateText, 100);
                 }
             }
             // counter.style.visibility = 'hidden';
@@ -78,6 +84,7 @@
 
 <body>
     <div class="main">
+        <div id='stats'></div>
         <span id='wait'></span>
         </br>
         <div id='game' style="visibility:hidden">
