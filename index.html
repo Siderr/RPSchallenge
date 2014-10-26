@@ -7,8 +7,8 @@
     <script>
     var choice = function(data) {
         socket.emit('choice', data);
+        clearStyle();
         setColor(data);
-
     };
 
     var setColor = function(data) {

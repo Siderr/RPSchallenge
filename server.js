@@ -136,7 +136,7 @@ var battle = function(p1, p2, player1, player2) {
             'content': 'You won!'
         });
         player2.emit('result', {
-            'content': 'You loose'
+            'content': 'You lose'
         });
         statisticsUpdate(player1.id, 'won');
         statisticsUpdate(player2.id, 'lost');
@@ -146,7 +146,7 @@ var battle = function(p1, p2, player1, player2) {
             'content': 'You won!'
         });
         player1.emit('result', {
-            'content': 'You loose'
+            'content': 'You lose'
         });
         statisticsUpdate(player2.id, 'won');
         statisticsUpdate(player1.id, 'lost');
