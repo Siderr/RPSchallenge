@@ -6,6 +6,7 @@ var express = require('express'),
     serverPort = 9098;
 var path = require('path');
 var Stats = require('./Stats.js');
+app.use(express.static(path.join(__dirname,'scripts')));
 app.use(express.static(path.join(__dirname, 'css')));
 app.use(express.static(path.join(__dirname, 'images')));
 var clients = [];
